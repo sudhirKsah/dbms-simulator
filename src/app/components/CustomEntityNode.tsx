@@ -26,7 +26,6 @@ const CustomEntityNode = ({ id, data }: any) => {
         ✕
       </button>
 
-      {/* Connection Points */}
       <Handle type="target" position={Position.Top} className="w-2 h-2 bg-blue-500" />
       <Handle type="source" position={Position.Bottom} className="w-2 h-2 bg-green-500" />
     </div>
