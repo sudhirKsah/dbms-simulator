@@ -44,7 +44,7 @@ const Toolbar = () => {
 
       {showEntityForm && (
         <div className="absolute top-16 left-4 z-10 bg-white p-4 border rounded shadow-lg">
-          <EntityForm />
+          <EntityForm aiGeneratedState={""} />
         </div>
       )}
 

@@ -1,6 +1,6 @@
 "use client";
-import Toolbar from "../components/Toolbar";
-import Canvas from "../components/Canvas";
+import Toolbar from "../../components/Toolbar";
+import Canvas from "../../components/Canvas";
 
 export default function Home() {
   return (
