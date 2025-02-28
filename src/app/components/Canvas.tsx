@@ -119,7 +119,7 @@ const Canvas = () => {
     );
 
     return (
-        <div >
+        <div className="flex flex-col w-full">
             <div className="w-full h-[500px] border bg-gray-100 rounded-lg">
                 <ReactFlow
                     nodes={nodes}
@@ -129,16 +129,16 @@ const Canvas = () => {
                     onEdgesChange={onEdgesChange}
                     onConnect={onConnect}
                     fitView
+                    style={{ width: '100%', height: '100%' }}
                 >
                     <Controls />
                     <Background />
                 </ReactFlow>
             </div>
-            <div>
+            <div className="w-full mt-4">
                 <ChatbotPage nodes={nodes} edges={edges} />
             </div>
         </div>
-
     );
 };
 

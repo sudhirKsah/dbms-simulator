@@ -4,16 +4,26 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useERDiagramStore } from "../lib/store";
+import { Node, Edge } from "reactflow"; // Import types from reactflow
 
-const ChatbotPage = ({ nodes, edges }) => {
+// Define a type for the task parameter
+type TaskType = "analyze" | "generate_state" | null;
+
+// Define the props interface for ChatbotPage
+interface ChatbotPageProps {
+  nodes: Node[]; // Type from reactflow
+  edges: Edge[]; // Type from reactflow
+}
+
+const ChatbotPage: React.FC<ChatbotPageProps> = ({ nodes, edges }) => {
   const { entities, relationships, setFullState } = useERDiagramStore();
-  const [response, setResponse] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [currentTask, setCurrentTask] = useState(null);
-  const [error, setError] = useState("");
-  const [generatedState, setGeneratedState] = useState(null);
+  const [response, setResponse] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [currentTask, setCurrentTask] = useState<TaskType>(null);
+  const [error, setError] = useState<string>("");
+  const [generatedState, setGeneratedState] = useState<any>(null); // You could define a more specific type here if needed
 
-  const fetchGeminiResponse = async (task) => {
+  const fetchGeminiResponse = async (task: TaskType) => {
     setLoading(true);
     setCurrentTask(task);
     setError("");
@@ -130,7 +140,7 @@ const ChatbotPage = ({ nodes, edges }) => {
       }
     } catch (apiError) {
       console.error("Error fetching from Gemini API:", apiError);
-      setError(`API Error: ${apiError.message || "Unknown error occurred"}`);
+      setError(`API Error: ${(apiError as Error).message || "Unknown error occurred"}`);
     } finally {
       setLoading(false);
       setCurrentTask(null);
