@@ -28,6 +28,7 @@ interface ERDiagramState {
   updateRelationshipPosition: (id: string, position: { x: number; y: number }) => void;
   deleteEntity: (id: string) => void;
   deleteRelationship: (id: string) => void;
+  setFullState: (newState: { entities: Entity[]; relationships: Relationship[] }) => void;
 }
 
 export const useERDiagramStore = create<ERDiagramState>()(
@@ -35,72 +36,71 @@ export const useERDiagramStore = create<ERDiagramState>()(
     (set) => ({
       entities: [],
       relationships: [],
-      
+
       addEntity: (entity) => 
         set((state) => ({ entities: [...state.entities, entity] })),
-      
+
       updateEntityPosition: (id, position) =>
         set((state) => ({
           entities: state.entities.map((entity) =>
             entity.id === id ? { ...entity, position } : entity
           ),
         })),
-      
+
       addRelationship: (relationship) =>
         set((state) => {
           const participantNames = relationship.participants.map(p => p.entityName).sort();
-          
+
           const existingRelationshipIndex = state.relationships.findIndex(rel => {
             if (rel.participants.length !== relationship.participants.length) {
               return false;
             }
-            
+
             const relParticipantNames = rel.participants.map(p => p.entityName).sort();
             return JSON.stringify(relParticipantNames) === JSON.stringify(participantNames);
           });
 
           if (existingRelationshipIndex !== -1) {
-            // Update the existing relationship
             const updatedRelationships = [...state.relationships];
-            const existingRelationship = updatedRelationships[existingRelationshipIndex];
             updatedRelationships[existingRelationshipIndex] = { 
               ...relationship, 
-              id: existingRelationship.id, 
-              position: existingRelationship.position 
+              id: updatedRelationships[existingRelationshipIndex].id, 
+              position: updatedRelationships[existingRelationshipIndex].position 
             };
             return { relationships: updatedRelationships };
           }
 
-          // Add new relationship if none exists
           return { relationships: [...state.relationships, relationship] };
         }),
-      
+
       updateRelationshipPosition: (id, position) =>
         set((state) => ({
           relationships: state.relationships.map((rel) =>
             rel.id === id ? { ...rel, position } : rel
           ),
         })),
-      
-      deleteEntity: (id) => 
+
+      deleteEntity: (id) =>
         set((state) => {
           const entityToDelete = state.entities.find(e => e.id === id);
           if (!entityToDelete) return state;
-          
-          const filteredRelationships = state.relationships.filter(rel => 
+
+          const filteredRelationships = state.relationships.filter(rel =>
             !rel.participants.some(p => p.entityName === entityToDelete.name)
           );
-          
-          return { 
+
+          return {
             entities: state.entities.filter(e => e.id !== id),
-            relationships: filteredRelationships
+            relationships: filteredRelationships,
           };
         }),
-      
-      deleteRelationship: (id) => 
-        set((state) => ({ 
-          relationships: state.relationships.filter((r) => r.id !== id) 
+
+      deleteRelationship: (id) =>
+        set((state) => ({
+          relationships: state.relationships.filter((r) => r.id !== id),
         })),
+
+      setFullState: (newState) => set(() => ({ entities: newState.entities, relationships: newState.relationships })),
     }),
     {
       name: "er-diagram-storage",

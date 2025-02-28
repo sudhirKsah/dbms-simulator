@@ -7,7 +7,6 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   Connection,
-  Node,
   NodeChange,
   Edge,
 } from "reactflow";
@@ -15,13 +14,14 @@ import "reactflow/dist/style.css";
 import { useERDiagramStore } from "../lib/store";
 import CustomEntityNode from "./CustomEntityNode";
 import CustomRelationshipNode from "./CustomRelationshipNode";
+import ChatbotPage from "../chatbot/page";
 
 const nodeTypes = {
   entityNode: CustomEntityNode,
   relationshipNode: CustomRelationshipNode,
 };
 
-const Canvas = () => {
+const Canvas = ()   => {
   const { 
     entities, 
     relationships, 
@@ -32,7 +32,6 @@ const Canvas = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  // Initial setup of nodes with stored positions
   useEffect(() => {
     const entityNodes = entities.map((entity) => ({
       id: entity.id,
@@ -42,11 +41,7 @@ const Canvas = () => {
         primaryKeys: entity.primaryKeys,
         attributes: entity.attributes,
       },
-      // Use stored position or generate a random one for new entities
-      position: entity.position || { 
-        x: Math.random() * 400, 
-        y: Math.random() * 300 
-      },
+      position: entity.position || { x: Math.random() * 400, y: Math.random() * 300 },
     }));
 
     const relationshipNodes = relationships.map((rel) => ({
@@ -56,66 +51,56 @@ const Canvas = () => {
         label: rel.type,
         participantCount: rel.participants?.length || 0,
       },
-      // Use stored position or generate a random one for new relationships
-      position: rel.position || { 
-        x: Math.random() * 400, 
-        y: Math.random() * 300 
-      },
+      position: rel.position || { x: Math.random() * 400, y: Math.random() * 300 },
     }));
 
     setNodes([...entityNodes, ...relationshipNodes]);
   }, [entities, relationships]);
 
-  // Setup edges based on relationships
   useEffect(() => {
     let newEdges: Edge[] = [];
 
     relationships.forEach((rel) => {
-        if (!rel.participants) return; // Skip if participants is undefined
+      if (!rel.participants) return;
       
-        const connectionPoints = rel.participants.length === 3
-          ? ["top", "right", "bottom"]
-          : ["left", "right"];
-      
-        rel.participants.forEach((participant, index) => {
-          const sourceEntity = entities.find((e) => e.name === participant.entityName);
-          
-          if (sourceEntity) {
-            const handleId = connectionPoints[index] || "left";
-      
-            newEdges.push({
-              id: `${rel.id}-${sourceEntity.id}`,
-              source: rel.id,
-              sourceHandle: handleId,
-              target: sourceEntity.id,
-              label: participant.cardinality || "",  // Ensure cardinality exists
-              type: "smoothstep",
-            });
-          }
-        });
+      const connectionPoints = rel.participants.length === 3
+        ? ["top", "right", "bottom"]
+        : ["left", "right"];
+    
+      rel.participants.forEach((participant, index) => {
+        const sourceEntity = entities.find((e) => e.name === participant.entityName);
+        
+        if (sourceEntity) {
+          const handleId = connectionPoints[index] || "left";
+    
+          newEdges.push({
+            id: `${rel.id}-${sourceEntity.id}`,
+            source: rel.id,
+            sourceHandle: handleId,
+            target: sourceEntity.id,
+            label: participant.cardinality || "",
+            type: "smoothstep",
+          });
+        }
       });
-      
+    });
 
     setEdges(newEdges);
   }, [relationships, entities]);
 
-  // Handle connection between nodes
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
-  // Save positions when nodes are moved
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
       onNodesChange(changes);
 
-      // Look for position changes
       changes.forEach((change) => {
         if (change.type === 'position' && change.position) {
           const nodeId = change.id;
           
-          // Check if it's an entity
           const entity = entities.find((e) => e.id === nodeId);
           if (entity) {
             updateEntityPosition(nodeId, change.position);
@@ -134,20 +119,26 @@ const Canvas = () => {
   );
 
   return (
-    <div className="w-full h-[500px] border bg-gray-100 rounded-lg">
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        nodeTypes={nodeTypes}
-        onNodesChange={handleNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        fitView
-      >
-        <Controls />
-        <Background />
-      </ReactFlow>
+    <div >
+      <div className="w-full h-[500px] border bg-gray-100 rounded-lg">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          onNodesChange={handleNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          fitView
+        >
+          <Controls />
+          <Background />
+        </ReactFlow>
+      </div>
+      <div className="">
+<ChatbotPage nodes={nodes} edges={edges} />
+</div>
     </div>
+      
   );
 };
 

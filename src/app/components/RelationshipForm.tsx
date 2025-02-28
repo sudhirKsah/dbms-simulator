@@ -37,7 +37,6 @@ const RelationshipForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate required fields
     if (!relationshipType) {
       setMessage({ text: "Relationship type is required", type: "error" });
       return;
@@ -49,14 +48,12 @@ const RelationshipForm = () => {
       return;
     }
     
-    // Check for duplicate entities
     const entityNames = participants.map(p => p.entityName);
     if (new Set(entityNames).size !== entityNames.length) {
       setMessage({ text: "Each entity can appear only once in a relationship", type: "error" });
       return;
     }
 
-    // Create new relationship
     const newRelationship = {
       id: crypto.randomUUID(),
       type: relationshipType,
@@ -65,14 +62,12 @@ const RelationshipForm = () => {
 
     addRelationship(newRelationship);
     
-    // Determine if this was an update or new creation
     const isUpdate = relationships.some(rel => {
       const relEntityNames = rel.participants.map(p => p.entityName).sort();
       const newEntityNames = participants.map(p => p.entityName).sort();
       return JSON.stringify(relEntityNames) === JSON.stringify(newEntityNames);
     });
 
-    // Set appropriate success message
     setMessage({ 
       text: isUpdate 
         ? "Relationship updated successfully" 
@@ -80,7 +75,6 @@ const RelationshipForm = () => {
       type: "success" 
     });
 
-    // Reset form to binary relationship default
     setRelationshipType("");
     setParticipants([
       { entityName: "", cardinality: "" },
