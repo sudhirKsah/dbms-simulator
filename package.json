@@ -9,10 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@codemirror/lang-sql": "^6.8.0",
+    "@uiw/react-codemirror": "^4.23.9",
+    "buffer": "^6.0.3",
+    "codemirror": "^6.0.1",
+    "crypto-browserify": "^3.12.1",
     "next": "15.1.7",
+    "process": "^0.11.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "reactflow": "^11.11.4",
+    "sql.js": "^1.12.0",
+    "sql.js-httpvfs": "^0.8.12",
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.5",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -20,6 +30,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sql.js": "^1.4.9",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
