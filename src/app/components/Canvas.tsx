@@ -32,7 +32,7 @@ const Canvas = () => {
 
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-    const diagramRef = useRef(null); // Reference for the diagram container
+    const diagramRef = useRef(null);
 
     useEffect(() => {
         const entityNodes = entities.map((entity) => ({

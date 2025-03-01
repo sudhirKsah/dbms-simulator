@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DBMS Simulator
+
+This project is a Database Management System (DBMS) Simulator that allows users to design Entity-Relationship (ER) diagrams. The application provides an interactive interface to create entities, relationships, and visualize the database structure.It also has an ai integreted feature like a teacher which can analyze your ER diagram  or suggest improvements.
+## Features
+
+- **Create Entities and Relationships:** Design your database schema by adding entities (tables) and relationships (connections between tables).
+- **Positioning:** Drag and drop entities and relationships on the canvas to customize the layout.
+- **Zooming and Panning:** Zoom in and out of the canvas and move around to get a better view of your diagram.
+- **State Persistence:** Changes to the ER diagram are stored and reflected immediately.
+
+## Technologies Used
+
+- **React:** A JavaScript library for building user interfaces.
+- **ReactFlow:** A library for rendering interactive flow diagrams.
+- **Tailwind CSS:** Utility-first CSS framework for fast UI development.
+- **Next.js:** A React framework for building optimized web applications.
+- **Zustand:** A state management library used for managing the application's state.
 
 ## Getting Started
 
-First, run the development server:
+To run the project locally, follow these steps:
+
+### Prerequisites
+
+- Node.js installed on your machine.
+- A code editor (e.g., Visual Studio Code).
+- NPM or Yarn for package management.
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/sudhirKsah/dbms-simulator
+    ```
+2. Navigate to the project directory:
+
+```bash
+cd dbms-simulator
+```
+3. Install the dependencies:
+
+```bash
+npm install
+# or if you're using Yarn
+yarn install
+```
+
+4. Add your gemini api key in .env.local 
+```bash
+//in .env.local
+NEXT_PUBLIC_GEMINI_API_KEY=<--api key-->
+```
+5. Start the development server:
 
 ```bash
 npm run dev
-# or
+# or if you're using Yarn
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+6.Open your browser and go to http://localhost:3000.
