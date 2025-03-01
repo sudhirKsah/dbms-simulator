@@ -3,7 +3,7 @@
 This project is a Database Management System (DBMS) Simulator that allows users to design Entity-Relationship (ER) diagrams. The application provides an interactive interface to create entities, relationships, and visualize the database structure.It also has an ai integreted feature like a teacher which can analyze your ER diagram  or suggest improvements.
 ## Features
 
-# 1. AI-Powered ER Diagram Creation & Refinement
+## 1. AI-Powered ER Diagram Creation & Refinement
 - Real-time AI analysis of ER diagrams.
 - Suggestions for improving entity relationships and structure.
 - One-click updates to instantly improve diagram correctness.
