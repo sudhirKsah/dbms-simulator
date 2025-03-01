@@ -1,4 +1,5 @@
 "use client";
+import domtoimage from "dom-to-image-more";
 import React, { useCallback, useEffect, useRef } from "react";
 import ReactFlow, {
     Controls,
@@ -15,7 +16,6 @@ import { useERDiagramStore } from "../lib/store";
 import CustomEntityNode from "./CustomEntityNode";
 import CustomRelationshipNode from "./CustomRelationshipNode";
 import ChatbotPage from "../chatbot/page";
-import { toPng, toSvg } from "html-to-image";
 
 const nodeTypes = {
     entityNode: CustomEntityNode,
@@ -123,7 +123,7 @@ const Canvas = () => {
     const downloadImage = () => {
         if (!diagramRef.current) return;
 
-        toPng(diagramRef.current)
+        domtoimage.toPng(diagramRef.current)
             .then((dataUrl: string) => {
                 const link = document.createElement("a");
                 link.href = dataUrl;
@@ -134,6 +134,7 @@ const Canvas = () => {
                 console.error("Failed to generate image:", error);
             });
     };
+
 
     // Function to download JSON
     const downloadJSON = () => {

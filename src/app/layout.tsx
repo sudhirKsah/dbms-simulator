@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import ConditionalGlobalComponent from "./components/ConditionalGlobalComponent";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DBMS Visualizer",
   description: "Learn and Visualize ER Diagrams, normalization with an AI Assistant",
+  icons: {
+    icon: "/favicon.ico", // Path to the favicon
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
