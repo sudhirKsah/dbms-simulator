@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="/"
           className="fixed top-4 left-4 text-2xl font-bold text-blue-600 hover:text-blue-800 transition duration-300"
         >
-          Learn ER
+          Olabs
         </Link>
         <ConditionalGlobalComponent />
         <main className="pt-16">{children}</main>
