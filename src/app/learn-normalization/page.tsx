@@ -65,7 +65,7 @@ export default function LearnNormalization() {
             <strong>Problem:</strong> The `CoursesEnrolled` column contains multiple values, violating 1NF’s atomicity rule.
           </p>
           <p className="text-gray-700 mt-3">
-            <strong>Solution:</strong> Split the multi-valued column into separate rows and add a primary key if needed:
+            <strong>Solution:</strong> Split the multi-valued column into separate rows and add a primary key if needed or create a new table for multi-valued attributes:
           </p>
           <pre className="bg-white p-3 rounded-md shadow text-gray-800">
             StudentID | Name    | CourseEnrolled <br />
