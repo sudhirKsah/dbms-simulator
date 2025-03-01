@@ -18,9 +18,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DBMS Visualizer",
   description: "Learn and Visualize ER Diagrams, normalization with an AI Assistant",
-  icons: {
-    icon: "/favicon.ico", // Path to the favicon
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
