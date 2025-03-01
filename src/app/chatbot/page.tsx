@@ -4,15 +4,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useERDiagramStore } from "../lib/store";
-import { Node, Edge } from "reactflow"; // Import types from reactflow
+import { Node, Edge } from "reactflow"; 
 
-// Define a type for the task parameter
 type TaskType = "analyze" | "generate_state" | null;
 
-// Define the props interface for ChatbotPage
 interface ChatbotPageProps {
   nodes: Node[]; // Type from reactflow
-  edges: Edge[]; // Type from reactflow
+  edges: Edge[]; 
 }
 
 const ChatbotPage: React.FC<ChatbotPageProps> = ({ nodes, edges }) => {
@@ -21,7 +19,7 @@ const ChatbotPage: React.FC<ChatbotPageProps> = ({ nodes, edges }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState<TaskType>(null);
   const [error, setError] = useState<string>("");
-  const [generatedState, setGeneratedState] = useState<any>(null); // You could define a more specific type here if needed
+  const [generatedState, setGeneratedState] = useState<any>(null); 
 
   const fetchGeminiResponse = async (task: TaskType) => {
     setLoading(true);
