@@ -30,17 +30,17 @@ const Toolbar = () => {
         {showRelationshipForm ? "Close Relationship Form" : "Add Relationship"}
       </button>
 
-      <button className="bg-purple-500 text-white px-4 py-2 rounded">
+      {/* <button className="bg-purple-500 text-white px-4 py-2 rounded">
         Generate Tables
       </button>
 
       <button className="bg-orange-500 text-white px-4 py-2 rounded">
         Generate SQL
-      </button>
+      </button> */}
 
-      <button className="bg-gray-800 text-white px-4 py-2 rounded">
+      {/* <button className="bg-gray-800 text-white px-4 py-2 rounded">
         Save Diagram
-      </button>
+      </button> */}
 
       {showEntityForm && (
         <div className="absolute top-16 left-4 z-10 bg-white p-4 border rounded shadow-lg">
